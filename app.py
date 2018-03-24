@@ -5,6 +5,7 @@ from config import *
 from models.Users import User
 from models.Questions import Question
 from models.Answers import Answers
+import time
 
 @app.route('/')
 def homepage():
@@ -26,6 +27,10 @@ def register():
         return render_template("register.html")
     else:
         username = request.form['username']
+        for ch in username:
+            if not (ch.isalpha() or ch.isdigit()):
+                flash("Invalid Username!")
+                return redirect(url_for('register'))
         if User.query.filter_by(username=username).first():
             flash("Username already taken, sorry!")
             return redirect(url_for('register'))
@@ -34,8 +39,20 @@ def register():
             hashed_password = sha256_crypt.hash(password)
             email = request.form['email']
             phone_no = request.form['phone_no']
+            if len(phone_no)>12:
+                flash("Invalid Phone no!")
+                return redirect(url_for('register'))
+            for ch in phone_no:
+                if not ch.isdigit():
+                    flash("Invalid Phone no!")
+                    return redirect(url_for('register'))
             bio = request.form['bio']
             dob = request.form['dob']
+            try:
+              valid_date = time.strptime(dob, '%d/%m/%Y')
+            except ValueError:
+              flash("Invalid Date of Birth!")
+              return redirect(url_for('register'))
             fav_topics = request.form['fav_topics']
             user = User(username=username,
                         password=hashed_password,
