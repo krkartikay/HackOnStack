@@ -12,8 +12,17 @@
 <hr>
 
 {% for answer in answers %}
-<h2>Answer by {{answer.author_u_id}} with ({{answer.upvotes}}) upvotes</h2>
-{{answer.body}}<hr>
+  <h2>Answer by {{answer.author_u_id}} with ({{answer.upvotes}}) upvotes</h2>
+  {{answer.body}}
+
+  <br>
+
+  <small>
+    <a href="{{url_for('upvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Upvote</a>
+    <a href="{{url_for('downvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Downvote</a>
+  </small>
+
+  <hr>
 {% endfor %}
 
 {% if session['logged_in']%}

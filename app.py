@@ -140,21 +140,53 @@ def question(q_id):
     ans = Answer.query.filter_by(q_id=q_id).all()
     return render_template("display_question.html", question=qs, answers=ans)
 
-@app.route('/upvote/question/<int:q_id>/', methods=['POST'])
-def upvote_q(q_id):
-    pass
+@app.route('/upvote/question/<int:q_id>/<int:u_id>')
+def upvote_q(q_id, u_id):
+    if not("logged_in" in session and session["logged_in"]):
+        flash("You need to log in first!")
+        return redirect(url_for('login'))
+    qs = Question.query.filter_by(q_id=q_id).first()
+    qs.upvotes += 1
+    db.session.commit()
+    db.session.close()
+    return redirect(url_for('question',q_id=q_id))
 
-@app.route('/downvote/question/<int:q_id>/', methods=['POST'])
-def downvote_q(q_id):
-    pass
+@app.route('/downvote/question/<int:q_id>/<int:u_id>')
+def downvote_q(q_id, u_id):
+    if not("logged_in" in session and session["logged_in"]):
+        flash("You need to log in first!")
+        return redirect(url_for('login'))
+    qs = Question.query.filter_by(q_id=q_id).first()
+    qs.upvotes -= 1
+    db.session.commit()
+    db.session.close()
+    return redirect(url_for('question',q_id=q_id))
 
-@app.route('/upvote/answer/<int:a_id>/', methods=['POST'])
-def upvote_a(a_id):
-    pass
+@app.route('/upvote/answer/<int:a_id>/<int:u_id>')
+def upvote_a(a_id, u_id):
+    if not("logged_in" in session and session["logged_in"]):
+        flash("You need to log in first!")
+        return redirect(url_for('login'))
+    ans = Answer.query.filter_by(a_id=a_id).first()
+    ans.upvotes += 1
+    q_id = ans.q_id
+    db.session.commit()
+    db.session.close()
+    return redirect(url_for('question',q_id=q_id))
 
-@app.route('/downvote/answer/<int:a_id>/', methods=['POST'])
-def downvote_a(a_id):
-    pass
+
+@app.route('/downvote/answer/<int:a_id>/<int:u_id>')
+def downvote_a(a_id, u_id):
+    if not("logged_in" in session and session["logged_in"]):
+        flash("You need to log in first!")
+        return redirect(url_for('login'))
+    ans = Answer.query.filter_by(a_id=a_id).first()
+    ans.upvotes -= 1
+    q_id = ans.q_id
+    db.session.commit()
+    db.session.close()
+    return redirect(url_for('question',q_id=q_id))
+
 
 @app.route('/profile/<int:u_id>/')
 def profile_page(u_id):
