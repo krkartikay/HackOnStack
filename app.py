@@ -45,11 +45,11 @@ def downvote_q(q_id):
     pass
 
 @app.route('/upvote/answer/<int:a_id>/', methods=['POST'])
-def upvote_q(a_id):
+def upvote_a(a_id):
     pass
 
 @app.route('/downvote/answer/<int:a_id>/', methods=['POST'])
-def downvote_q(a_id):
+def downvote_a(a_id):
     pass
 
 @app.route('/profile/<int:u_id>/')
