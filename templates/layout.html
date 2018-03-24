@@ -10,6 +10,7 @@
 
 	<body>
 		<h1>{% block heading %}{% endblock %}</h1>
+		<hr>
 		<ul>
 			<li><a href="{{url_for('homepage')}}">Home Page</a></li>
 			{% if session['logged_in'] %}
@@ -21,8 +22,9 @@
 			{% endif %}
 			<li><a href="{{url_for('post_question')}}">Ask a question!</a></li>
 		</ul>
+		<hr>
     {% block content %}{% endblock %}
-
+		<hr>
 		{% include "flash_messages.html" %}
 	</body>
 
