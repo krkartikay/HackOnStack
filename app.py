@@ -90,7 +90,7 @@ def downvote_a(a_id):
     pass
 
 @app.route('/profile/<int:u_id>/')
-def function(u_id):
+def profile_page(u_id):
     return render_template("profile.html")
 
 if __name__ == '__main__':
