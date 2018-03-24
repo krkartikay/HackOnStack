@@ -137,7 +137,8 @@ def post_answer(q_id):
 @app.route('/question/<int:q_id>')
 def question(q_id):
     qs = Question.query.filter_by(q_id=q_id).first()
-    return render_template("display_question.html", question=qs)
+    ans = Answer.query.filter_by(q_id=q_id).all()
+    return render_template("display_question.html", question=qs, answers=ans)
 
 @app.route('/upvote/question/<int:q_id>/', methods=['POST'])
 def upvote_q(q_id):
