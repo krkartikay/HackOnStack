@@ -1,7 +1,10 @@
 from flask import *
 from flask_sqlalchemy import *
 from passlib.hash import sha256_crypt
-from config import app
+from config import *
+from models.Users import User
+from models.Questions import Question
+from models.Answers import Answers
 
 @app.route('/')
 def homepage():
@@ -22,7 +25,28 @@ def register():
     if request.method == "GET":
         return render_template("register.html")
     else:
-        pass
+        username = request.form['username']
+        if User.query.filter_by(username=username).first():
+            flash("Username already taken, sorry!")
+            return redirect(url_for('register'))
+        else:
+            password = request.form['password']
+            hashed_password = sha256_crypt.hash(password)
+            email = request.form['email']
+            phone_no = request.form['phone_no']
+            bio = request.form['bio']
+            dob = request.form['dob']
+            fav_topics = request.form['fav_topics']
+            user = User(username=username,
+                        password=hashed_password,
+                        email=email,
+                        phone_no=phone_no,
+                        bio=bio,
+                        dob=dob)
+            db.session.add(user)
+            db.session.commit()
+            flash("Successfully registered!")
+            return redirect(url_for('homepage'))
 
 @app.route('/post/question/', methods=['POST','GET'])
 def post_question():

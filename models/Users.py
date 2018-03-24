@@ -6,6 +6,6 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(77))
     email = db.Column(db.String(80), nullable=False)
-    phoneno = db.Column(db.String(13))
+    phone_no = db.Column(db.String(13))
     bio = db.Column(db.String(1000))
     dob = db.Column(db.DateTime, nullable=False)
