@@ -81,6 +81,7 @@ def register():
                         dob=dob)
             db.session.add(user)
             db.session.commit()
+            db.session.close()
             flash("Successfully registered!")
             return redirect(url_for('homepage'))
 
