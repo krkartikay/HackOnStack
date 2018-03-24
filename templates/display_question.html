@@ -35,11 +35,11 @@
 </div>
 {% endfor %}
 
-{% if session['logged_in']%}
-<form action="{{url_for('post_answer', q_id = question.q_id)}}" method="post">
-  <textarea name="answer" rows="8" cols="80">Submit your answer...</textarea><br>
-  <input type="submit" name="Submit" value="Post">
-</form>
-{% endif %}
+<div class="form-group">
+  <form action="{{url_for('post_answer', q_id = question.q_id)}}" method="post">
+    <textarea name="answer" class="form-control" rows=5>Submit your answer...</textarea><br>
+    <input type="submit" name="Submit" value="Post" class="btn btn-primary">
+  </form>
+</div>
 
 {% endblock %}
