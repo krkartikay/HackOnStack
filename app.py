@@ -4,7 +4,7 @@ from passlib.hash import sha256_crypt
 from config import *
 from models.Users import User
 from models.Questions import Question
-from models.Answers import Answers
+from models.Answers import Answer
 import time
 
 @app.route('/')
@@ -111,14 +111,34 @@ def post_question():
             flash("Your question has been posted!")
             return redirect(url_for('homepage'))
 
-@app.route('/post/answer/', methods=['POST'])
-def post_answer():
-    pass
+@app.route('/post/answer/<int:q_id>', methods=['POST'])
+def post_answer(q_id):
+    if not("logged_in" in session and session["logged_in"]):
+        flash("You need to log in first!")
+        return redirect(url_for('login'))
+    answer_body = request.form["answer"]
+    if answer_body != "":
+        author_u_id = session["u_id"]
+        post_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        upvotes = 0
+        answer = Answer(q_id = q_id,
+                        body = answer_body,
+                        author_u_id = author_u_id,
+                        post_time = post_time,
+                        upvotes = upvotes)
+        db.session.add(answer)
+        db.session.commit()
+        db.session.close()
+        flash("Your answer has been posted!")
+    else:
+        flash("Answer can't be blank!")
+    return redirect(url_for("question", q_id = q_id))
 
 @app.route('/question/<int:q_id>')
 def question(q_id):
     qs = Question.query.filter_by(q_id=q_id).first()
-    return render_template("display_question.html", question=qs)
+    ans = Answer.query.filter_by(q_id=q_id).all()
+    return render_template("display_question.html", question=qs, answers=ans)
 
 @app.route('/upvote/question/<int:q_id>/', methods=['POST'])
 def upvote_q(q_id):

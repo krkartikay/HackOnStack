@@ -11,4 +11,16 @@
 
 <hr>
 
+{% for answer in answers %}
+<h2>Answer by {{answer.author_u_id}} with ({{answer.upvotes}}) upvotes</h2>
+{{answer.body}}<hr>
+{% endfor %}
+
+{% if session['logged_in']%}
+<form action="{{url_for('post_answer', q_id = question.q_id)}}" method="post">
+  <textarea name="answer" rows="8" cols="80">Submit your answer...</textarea><br>
+  <input type="submit" name="Submit" value="Post">
+</form>
+{% endif %}
+
 {% endblock %}
