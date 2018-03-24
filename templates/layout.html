@@ -4,6 +4,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>{% block title %}{% endblock %}</title>
+		<link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+		<script scr="{{url_for('static',filename='js/script.js')}}"></script>
 	</head>
 
 	<body>
@@ -15,6 +17,8 @@
 			<li><a href="{{url_for('post_question')}}">Post Question Page</a></li>
 		</ul>
     {% block content %}{% endblock %}
+
+		{% include "flash_messages.html" %}
 	</body>
 
 </html>

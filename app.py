@@ -12,7 +12,10 @@ def login():
     if request.method == "GET":
         return render_template("login.html")
     else:
-        pass
+        u = request.form['username']
+        p = request.form['password']
+        flash("You are logged in")
+        return redirect(url_for('homepage'))
 
 @app.route('/register/', methods=['POST','GET'])
 def register():
