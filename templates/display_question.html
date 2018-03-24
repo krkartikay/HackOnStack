@@ -1,14 +1,12 @@
 {% extends "layout.html" %}
 
 {% block title %}Display Question Page{% endblock %}
-{% block heading %}Display Question Page{% endblock %}
+{% block heading %}{{question.title}}{% endblock %}
 
 {% block content %}
 
-<h2>{{question.title}}</h2>
-<h3>Asked by {{question.author_u_id}} with ({{question.upvotes}}) upvotes</h3>
-
-{{question.body}}
+{{question.body}}<br>
+<small>Asked by {{question.author_u_id}} with ({{question.upvotes}}) upvotes</small>
 
 <br>
 
