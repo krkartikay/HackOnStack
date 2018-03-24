@@ -4,21 +4,62 @@
 {% block heading %}Register Page{% endblock %}
 
 {% block content %}
-<form method="post">
-  <label for="name">Name: </label>
-  <input type="text" name="username" value="Enter your username"><br>
-  <label for="name">Password: </label>
-  <input type="password" name="password" value="password"><br>
-  <label for="email">Email: </label>
-  <input type="text" name="email" value="Enter your email"><br>
-  <label for="phone_no">Phone Number: </label>
-  <input type="text" name="phone_no" value="Enter your phone number"><br>
-  <label for="bio">Bio: </label><br>
-  <textarea name="bio" rows="8" cols="80"></textarea><br>
-  <label for="dob">DOB: </label>
-  <input type="date" name="dob" value="Enter your DOB"><br>
-  <label for="fav_topics">Favourite Topics: </label><br>
-  <textarea name="fav_topics" rows="8" cols="80"></textarea><br>
-  <input type="submit" value="Register">
+<form class="form-horizontal" method="post">
+  <div class="form-group row">
+    <label class="control-label col-sm-2" for="name">Name:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="username" placeholder="Enter your username">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="control-label col-sm-2" for="password">Password:</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" name="password" placeholder="Enter your password">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="control-label col-sm-2" for="email">Email:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="email" placeholder="Enter your e-mail">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="control-label col-sm-2" for="phone_no">Phone Number:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="phone_no" placeholder="Enter your phone number">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="control-label col-sm-2" for="dob">Date of Birth:</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" name="dob" placeholder="Enter your DOB">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="control-label col-sm-2" for="bio">Bio:</label>
+    <div class="col-sm-10">
+      <textarea name="bio" class="form-control" rows=5 placeholder="Enter your e-mail"></textarea>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="control-label col-sm-2" for="fav_topics">Favourite Topics:</label>
+    <div class="col-sm-10">
+      <textarea name="fav_topics" class="form-control" rows=5 placeholder="Enter some of your favourite topics"></textarea>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-2">
+
+    </div>
+    <div class="col-sm-offset-2 col-sm-4">
+      <input type="submit" value="Register" class="btn btn-primary form-control">
+    </div>
+  </div>
   </form>
 {% endblock %}
