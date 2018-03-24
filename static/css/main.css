@@ -1,0 +1,16 @@
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+.flash-alerts{
+  position: absolute;
+  top:100px;
+  left:20%;
+  width:60%;
+}
