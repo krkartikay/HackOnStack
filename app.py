@@ -16,9 +16,17 @@ def login():
     if request.method == "GET":
         return render_template("login.html")
     else:
-        u = request.form['username']
-        p = request.form['password']
-        flash("You are logged in")
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        if not(user):
+            flash("This Username doesn't exists!")
+        else:
+            password_correct = sha256_crypt.verify(password, user.password)
+            if not(password_correct):
+                flash("Wrong password entered!")
+            else:
+                flash("Logged in successfully:)")
         return redirect(url_for('homepage'))
 
 @app.route('/register/', methods=['POST','GET'])
