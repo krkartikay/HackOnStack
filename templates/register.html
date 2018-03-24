@@ -4,5 +4,18 @@
 {% block heading %}Register Page{% endblock %}
 
 {% block content %}
-
+<form method="post">
+  <label for="name">Name: </label>
+  <input type="text" name="name" value="Enter your name"><br>
+  <label for="email">Email: </label>
+  <input type="text" name="email" value="Enter your email"><br>
+  <label for="phone_no">Phone Number: </label>
+  <input type="text" name="phone_no" value="Enter your phone number"><br>
+  <label for="bio">Bio: </label><br>
+  <textarea name="bio" rows="8" cols="80"></textarea><br>
+  <label for="dob">DOB: </label>
+  <input type="date" name="dob" value="Enter your DOB"><br>
+  <label for="fav_topics">Favourite Topics: </label><br>
+  <textarea name="fav_topics" rows="8" cols="80"></textarea><br>
+  </form>
 {% endblock %}

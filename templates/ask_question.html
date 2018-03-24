@@ -1,8 +1,13 @@
 {% extends "layout.html" %}
 
 {% block title %}Ask Question Page{% endblock %}
-{% block heading %}Ask Question Page{% endblock %}
+{% block heading %}Ask Question{% endblock %}
 
 {% block content %}
-
+<form method="post">
+  <label for="ask_question">Ask your question here: </label><br>
+  <input type="text" name="title" value="Enter Question Title"><br>
+  <textarea name="body" rows="8" cols="80">Enter Your Question Here</textarea><br>
+  <input type="submit" name="submit" value="Post Question">
+</form>
 {% endblock %}

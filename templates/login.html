@@ -4,5 +4,10 @@
 {% block heading %}Login Page{% endblock %}
 
 {% block content %}
-
+<form method="post">
+  <label for="username">username</label>
+  <input type="text" name="username" value="Enter username"><br>
+  <label for="password">password</label>
+  <input type="password" name="password" value="Enter password"><br>
+</form>
 {% endblock %}
