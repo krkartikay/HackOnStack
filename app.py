@@ -73,12 +73,12 @@ def register():
               flash("Invalid Date of Birth!")
               return redirect(url_for('register'))
             fav_topics = request.form['fav_topics']
-            user = User(username=username,
-                        password=hashed_password,
-                        email=email,
-                        phone_no=phone_no,
-                        bio=bio,
-                        dob=dob)
+            user = User(username = username,
+                        password = hashed_password,
+                        email = email,
+                        phone_no = phone_no,
+                        bio = bio,
+                        dob = dob)
             db.session.add(user)
             db.session.commit()
             db.session.close()
@@ -87,10 +87,28 @@ def register():
 
 @app.route('/post/question/', methods=['POST','GET'])
 def post_question():
-    if request.method == "GET":
-        return render_template("ask_question.html")
+    if not("logged_in" in session and session["logged_in"]):
+        flash("You need to log in first!")
+        return redirect(url_for('login'))
     else:
-        pass
+        if request.method == "GET":
+            return render_template("ask_question.html")
+        else:
+            author_u_id = session['u_id']
+            title = request.form['title']
+            body = request.form['body']
+            post_time = time.strftime('%Y-%m-%d %H:%M:%S')
+            upvotes = 0
+            question = Question(title = title,
+                                body = body,
+                                author_u_id = author_u_id,
+                                post_time = post_time,
+                                upvotes = upvotes)
+            db.session.add(question)
+            db.session.commit()
+            db.session.close()
+            flash("Your question has been posted!")
+            return redirect(url_for('homepage'))
 
 @app.route('/post/answer/', methods=['POST'])
 def post_answer():
