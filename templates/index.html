@@ -10,12 +10,12 @@
   <!--<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">-->
   <div class="card-body">
     <h2 class="card-title">{{ques.title}}</h2>
-    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-    <a href="#" class="btn btn-primary">Read More &rarr;</a>
+    <p class="card-text">{{ques.body}} </p>
+    <a href="{{url_for("question", q_id = ques.q_id)}}" class="btn btn-primary">View Answers &rarr;</a>
   </div>
   <div class="card-footer text-muted">
-    Posted on January 1, 2017 by
-    <a href="#">Start Bootstrap</a>
+    Posted on {{ques.post_time}} by
+    <a href="{{url_for("profile_page", u_id = ques.author_u_id)}}">{{ques.author_u_id}}</a>
   </div>
 </div>
 {% endfor %}
