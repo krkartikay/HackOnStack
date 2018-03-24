@@ -22,10 +22,12 @@ def login():
         user = User.query.filter_by(username=username).first()
         if not(user):
             flash("This Username doesn't exists!")
+            return redirect(url_for('login'))
         else:
             password_correct = sha256_crypt.verify(password, user.password)
             if not(password_correct):
                 flash("Wrong password entered!")
+                return redirect(url_for('login'))
             else:
                 flash("Logged in successfully:)")
                 session['username'] = username

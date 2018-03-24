@@ -1,14 +1,12 @@
 {% extends "layout.html" %}
 
 {% block title %}Display Question Page{% endblock %}
-{% block heading %}Display Question Page{% endblock %}
+{% block heading %}{{question.title}}{% endblock %}
 
 {% block content %}
 
-<h2>{{question.title}}</h2>
-<h3>Asked by {{question.author_u_id}} with ({{question.upvotes}}) upvotes</h3>
-
-{{question.body}}
+{{question.body}}<br>
+<small>Asked by {{question.author_u_id}} with ({{question.upvotes}}) upvotes</small>
 
 <br>
 
@@ -20,28 +18,28 @@
 {% endif %}
 
 <hr>
-
 {% for answer in answers %}
-  <h3>Answer by {{answer.author_u_id}} with ({{answer.upvotes}}) upvotes</h3>
-  {{answer.body}}
-
-  <br>
-
-  {% if session['logged_in']%}
-    <small>
-      <a href="{{url_for('upvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Upvote</a>
-      <a href="{{url_for('downvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Downvote</a>
-    </small>
-  {% endif %}
-
-  <hr>
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="card-title">Answer by {{answer.author_u_id}} with ({{answer.upvotes}}) upvotes</h2>
+    <p class="card-text">{{answer.body}} </p>
+  </div>
+  <div class="card-footer text-muted">
+    {% if session['logged_in']%}
+      <small>
+        <a href="{{url_for('upvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Upvote</a>
+        <a href="{{url_for('downvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Downvote</a>
+      </small>
+    {% endif %}
+  </div>
+</div>
 {% endfor %}
 
-{% if session['logged_in']%}
-<form action="{{url_for('post_answer', q_id = question.q_id)}}" method="post">
-  <textarea name="answer" rows="8" cols="80">Submit your answer...</textarea><br>
-  <input type="submit" name="Submit" value="Post">
-</form>
-{% endif %}
+<div class="form-group">
+  <form action="{{url_for('post_answer', q_id = question.q_id)}}" method="post">
+    <textarea name="answer" class="form-control" rows=5>Submit your answer...</textarea><br>
+    <input type="submit" name="Submit" value="Post" class="btn btn-primary">
+  </form>
+</div>
 
 {% endblock %}

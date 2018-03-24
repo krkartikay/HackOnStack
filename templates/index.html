@@ -5,10 +5,18 @@
 
 {% block content %}
 
-<ol>
-  {% for ques in questions %}
-    <li> <a href="{{url_for('question',q_id=ques.q_id)}}">{{ques.title}}</a> (Score: {{ques.upvotes}}) </li>
-  {% endfor %}
-</ol>
+{% for ques in questions %}
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="card-title">{{ques.title}}</h2>
+    <p class="card-text">{{ques.body}} </p>
+    <a href="{{url_for("question", q_id = ques.q_id)}}" class="btn btn-primary">View Answers &rarr;</a>
+  </div>
+  <div class="card-footer text-muted">
+    Posted on {{ques.post_time}} by
+    <a href="{{url_for("profile_page", u_id = ques.author_u_id)}}">{{ques.author_u_id}}</a>
+  </div>
+</div>
+{% endfor %}
 
 {% endblock %}
