@@ -12,10 +12,12 @@
 
 <br>
 
+{% if session['logged_in']%}
 <small>
   <a href="{{url_for('upvote_q',q_id=question.q_id, u_id=session['u_id'])}}">Upvote</a>
   <a href="{{url_for('downvote_q',q_id=question.q_id, u_id=session['u_id'])}}">Downvote</a>
 </small>
+{% endif %}
 
 <hr>
 
@@ -25,10 +27,12 @@
 
   <br>
 
-  <small>
-    <a href="{{url_for('upvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Upvote</a>
-    <a href="{{url_for('downvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Downvote</a>
-  </small>
+  {% if session['logged_in']%}
+    <small>
+      <a href="{{url_for('upvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Upvote</a>
+      <a href="{{url_for('downvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Downvote</a>
+    </small>
+  {% endif %}
 
   <hr>
 {% endfor %}
