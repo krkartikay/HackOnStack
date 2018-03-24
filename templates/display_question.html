@@ -18,21 +18,21 @@
 {% endif %}
 
 <hr>
-
 {% for answer in answers %}
-  <h3>Answer by {{answer.author_u_id}} with ({{answer.upvotes}}) upvotes</h3>
-  {{answer.body}}
-
-  <br>
-
-  {% if session['logged_in']%}
-    <small>
-      <a href="{{url_for('upvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Upvote</a>
-      <a href="{{url_for('downvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Downvote</a>
-    </small>
-  {% endif %}
-
-  <hr>
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="card-title">Answer by {{answer.author_u_id}} with ({{answer.upvotes}}) upvotes</h2>
+    <p class="card-text">{{answer.body}} </p>
+  </div>
+  <div class="card-footer text-muted">
+    {% if session['logged_in']%}
+      <small>
+        <a href="{{url_for('upvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Upvote</a>
+        <a href="{{url_for('downvote_a',a_id=answer.a_id, u_id=session['u_id'])}}">Downvote</a>
+      </small>
+    {% endif %}
+  </div>
+</div>
 {% endfor %}
 
 {% if session['logged_in']%}

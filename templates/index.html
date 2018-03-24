@@ -7,7 +7,6 @@
 
 {% for ques in questions %}
 <div class="card mb-4">
-  <!--<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">-->
   <div class="card-body">
     <h2 class="card-title">{{ques.title}}</h2>
     <p class="card-text">{{ques.body}} </p>
@@ -19,13 +18,5 @@
   </div>
 </div>
 {% endfor %}
-
-<!--
-<ol>
-  {% for ques in questions %}
-    <li> <a href="{{url_for('question',q_id=ques.q_id)}}">{{ques.title}}</a> (Score: {{ques.upvotes}}) </li>
-  {% endfor %}
-</ol>
--->
 
 {% endblock %}
