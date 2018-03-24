@@ -27,7 +27,18 @@ def login():
                 flash("Wrong password entered!")
             else:
                 flash("Logged in successfully:)")
+                session['username'] = username
+                session['u_id'] = user.u_id
+                session['logged_in'] = True
         return redirect(url_for('homepage'))
+
+@app.route('/logout/')
+def logout():
+    session.pop('username', None)
+    session.pop('u_id', None)
+    session.pop('logged_in', False)
+    return redirect(url_for('homepage'))
+
 
 @app.route('/register/', methods=['POST','GET'])
 def register():
