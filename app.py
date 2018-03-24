@@ -9,7 +9,8 @@ import time
 
 @app.route('/')
 def homepage():
-    return render_template("index.html")
+    qs = Question.query.all()
+    return render_template("index.html",questions=qs)
 
 @app.route('/login/', methods=['POST','GET'])
 def login():

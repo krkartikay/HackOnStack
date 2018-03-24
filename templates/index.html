@@ -5,4 +5,10 @@
 
 {% block content %}
 
+<ol>
+  {% for ques in questions %}
+    <li><a href="{{url_for('question',q_id=ques.q_id)}}">{{ques.title}}</a></li>
+  {% endfor %}
+</ol>
+
 {% endblock %}
