@@ -1,3 +1,4 @@
+import time
 from flask import *
 from flask_sqlalchemy import *
 from passlib.hash import sha256_crypt
@@ -5,7 +6,6 @@ from config import *
 from models.Users import User
 from models.Questions import Question
 from models.Answers import Answer
-import time
 
 @app.route('/')
 def homepage():
