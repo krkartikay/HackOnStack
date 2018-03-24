@@ -49,7 +49,7 @@ def register():
             bio = request.form['bio']
             dob = request.form['dob']
             try:
-              valid_date = time.strptime(dob, '%d/%m/%Y')
+              valid_date = time.strptime(dob,'%Y-%m-%d')
             except ValueError:
               flash("Invalid Date of Birth!")
               return redirect(url_for('register'))
