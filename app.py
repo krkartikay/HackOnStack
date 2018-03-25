@@ -153,6 +153,14 @@ def upvote_q(q_id, u_id):
         return redirect(url_for('login'))
     qs = Question.query.filter_by(q_id=q_id).first()
     qs.upvotes += 1
+    if qs.upvoters:
+        if "+"+str(u_id) in qs.upvoters:
+            flash("You cannot upvote/downvote twice!")
+            return redirect(url_for('question',q_id=q_id))
+        else:
+            qs.upvoters += " +"+str(u_id)
+    else:
+        qs.upvoters = " +"+str(u_id)
     db.session.commit()
     db.session.close()
     return redirect(url_for('question',q_id=q_id))
@@ -164,6 +172,14 @@ def downvote_q(q_id, u_id):
         return redirect(url_for('login'))
     qs = Question.query.filter_by(q_id=q_id).first()
     qs.upvotes -= 1
+    if qs.upvoters:
+        if "-"+str(u_id) in qs.upvoters:
+            flash("You cannot upvote/downvote twice!")
+            return redirect(url_for('question',q_id=q_id))
+        else:
+            qs.upvoters += " -"+str(u_id)
+    else:
+        qs.upvoters = " -"+str(u_id)
     db.session.commit()
     db.session.close()
     return redirect(url_for('question',q_id=q_id))
@@ -176,6 +192,14 @@ def upvote_a(a_id, u_id):
     ans = Answer.query.filter_by(a_id=a_id).first()
     ans.upvotes += 1
     q_id = ans.q_id
+    if ans.upvoters:
+        if " +"+session['u_id'] in ans.upvoters:
+            flash("You cannot upvote/downvote twice!")
+            return redirect(url_for('question',q_id=q_id))
+        else:
+            ans.upvoters += " +"+session['u_id']
+    else:
+        ans.upvoters = " +"+session['u_id']
     db.session.commit()
     db.session.close()
     return redirect(url_for('question',q_id=q_id))
@@ -189,6 +213,14 @@ def downvote_a(a_id, u_id):
     ans = Answer.query.filter_by(a_id=a_id).first()
     ans.upvotes -= 1
     q_id = ans.q_id
+    if ans.upvoters:
+        if " -"+session['u_id'] in ans.upvoters:
+            flash("You cannot upvote/downvote twice!")
+            return redirect(url_for('question',q_id=q_id))
+        else:
+            ans.upvoters += " -"+session['u_id']
+    else:
+        ans.upvoters = " -"+session['u_id']
     db.session.commit()
     db.session.close()
     return redirect(url_for('question',q_id=q_id))

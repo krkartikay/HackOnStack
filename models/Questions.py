@@ -8,4 +8,4 @@ class Question(db.Model):
     author_u_id = db.Column(db.Integer, nullable=False)
     post_time = db.Column(db.DateTime, nullable=False)
     upvotes = db.Column(db.Integer)
-    # upvoters_id = ??
+    upvoters = db.Column(db.Text)

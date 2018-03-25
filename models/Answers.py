@@ -8,3 +8,4 @@ class Answer(db.Model):
     author_u_id = db.Column(db.Integer)
     post_time = db.Column(db.DateTime)
     upvotes = db.Column(db.Integer)
+    upvoters = db.Column(db.Text)
