@@ -14,7 +14,7 @@
   </div>
   <div class="card-footer text-muted">
     Posted on {{ques.post_time}} by
-    <a href="{{url_for("profile_page", u_id = ques.author_u_id)}}">{{ques.author_u_id}}</a>
+    <a href="{{url_for("profile_page", u_id = ques.author_u_id)}}">{{helpers.get_username(ques.author_u_id)}}</a>
   </div>
 </div>
 {% endfor %}
