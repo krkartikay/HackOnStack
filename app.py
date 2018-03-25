@@ -196,4 +196,5 @@ def downvote_a(a_id, u_id):
 
 @app.route('/profile/<int:u_id>/')
 def profile_page(u_id):
-    return render_template("profile.html")
+    user = User.query.filter_by(u_id=u_id).first()
+    return render_template("profile.html", user = user)
