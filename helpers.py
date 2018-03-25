@@ -6,3 +6,7 @@ def get_username(u_id):
         return u.username
     else:
         return "unknown user"
+
+def get_top_users():
+    u = User.query.order_by(User.reputation.desc()).all()
+    return u

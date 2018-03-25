@@ -43,7 +43,7 @@
             </li>
             {% if session['logged_in'] %}
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('profile_page',u_id=session['u_id'])}}">{{session["username"]}}'s Profile</a>
+              <a class="nav-link" href="{{url_for('profile_page',u_id=session['u_id'])}}">{{session["username"]|capitalize}}'s Profile</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
@@ -105,6 +105,21 @@
               HackOnStack is a place to share knowledge and better to understand the world.
               You can post your questions and doubts here; and give answers to those questions you know.
               Have fun :)
+            </div>
+          </div>
+
+          <div class="card my-4">
+            <h5 class="card-header">Top Users</h5>
+            <div class="card-body">
+              <ol>
+                {% for u in helpers.get_top_users() %}
+                <li>
+                  <a href="{{url_for('profile_page',u_id=u.u_id)}}">
+                    {{u.username|capitalize}}
+                  </a> - {{u.reputation}}
+                </li>
+                {% endfor %}
+              </ol>
             </div>
           </div>
 
