@@ -9,3 +9,4 @@ class User(db.Model):
     phone_no = db.Column(db.String(13))
     bio = db.Column(db.String(1000))
     dob = db.Column(db.DateTime, nullable=False)
+    reputation = db.Column(db.Integer, default=100)
