@@ -97,21 +97,25 @@ def post_question():
         if request.method == "GET":
             return render_template("ask_question.html")
         else:
-            author_u_id = session['u_id']
             title = request.form['title']
-            body = request.form['body']
-            post_time = time.strftime('%Y-%m-%d %H:%M:%S')
-            upvotes = 0
-            question = Question(title = title,
-                                body = body,
-                                author_u_id = author_u_id,
-                                post_time = post_time,
-                                upvotes = upvotes)
-            db.session.add(question)
-            db.session.commit()
-            db.session.close()
-            flash("Your question has been posted!")
-            return redirect(url_for('homepage'))
+            if title == "":
+                flash("Title can't be empty!")
+                return redirect(url_for('post_question'))
+            else:
+                author_u_id = session['u_id']
+                body = request.form['body']
+                post_time = time.strftime('%Y-%m-%d %H:%M:%S')
+                upvotes = 0
+                question = Question(title = title,
+                                    body = body,
+                                    author_u_id = author_u_id,
+                                    post_time = post_time,
+                                    upvotes = upvotes)
+                db.session.add(question)
+                db.session.commit()
+                db.session.close()
+                flash("Your question has been posted!")
+                return redirect(url_for('homepage'))
 
 @app.route('/post/answer/<int:q_id>', methods=['POST'])
 def post_answer(q_id):
