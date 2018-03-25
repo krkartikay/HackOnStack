@@ -13,6 +13,7 @@
     <a href="{{url_for("question", q_id = ques.q_id)}}" class="btn btn-primary">View Answers &rarr;</a>
   </div>
   <div class="card-footer text-muted">
+    <strong>{{ques.upvotes}}</strong> Upvotes,
     Posted on {{ques.post_time}} by
     <a href="{{url_for("profile_page", u_id = ques.author_u_id)}}">{{helpers.get_username(ques.author_u_id)}}</a>
   </div>

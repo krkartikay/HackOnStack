@@ -10,7 +10,7 @@ from vote_system import *
 
 @app.route('/')
 def homepage():
-    qs = Question.query.all()
+    qs = Question.query.order_by(Question.upvotes.desc()).all()
     return render_template("index.html",questions=qs)
 
 @app.route('/login/', methods=['POST','GET'])
@@ -144,7 +144,7 @@ def post_answer(q_id):
 @app.route('/question/<int:q_id>')
 def question(q_id):
     qs = Question.query.filter_by(q_id=q_id).first()
-    ans = Answer.query.filter_by(q_id=q_id).all()
+    ans = Answer.query.filter_by(q_id=q_id).order_by(Answer.upvotes.desc()).all()
     return render_template("display_question.html", question=qs, answers=ans)
 
 
