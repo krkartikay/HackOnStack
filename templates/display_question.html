@@ -6,7 +6,7 @@
 {% block content %}
 
 {{question.body}}<br>
-<small>Asked by {{question.author_u_id}} with ({{question.upvotes}}) upvotes</small>
+<small>Asked by {{helpers.get_username(question.author_u_id)}} with ({{question.upvotes}}) upvotes</small>
 
 <br>
 
@@ -21,7 +21,7 @@
 {% for answer in answers %}
 <div class="card mb-4">
   <div class="card-body">
-    <h2 class="card-title">Answer by {{answer.author_u_id}} with ({{answer.upvotes}}) upvotes</h2>
+    <h4><small>Answer by {{helpers.get_username(answer.author_u_id)}} with ({{answer.upvotes}}) upvotes</small></h4>
     <p class="card-text">{{answer.body}} </p>
   </div>
   <div class="card-footer text-muted">
