@@ -13,6 +13,14 @@ def homepage():
     qs = Question.query.order_by(Question.upvotes.desc()).all()
     return render_template("index.html",questions=qs)
 
+@app.route('/search', methods=['POST'])
+def search():
+    query = request.form['search_query']
+    qs = Question.query.filter((Question.title.contains(query) |
+                                   Question.body.contains(query))
+                              ).order_by(Question.upvotes.desc()).all()
+    return render_template("index.html",questions=qs,search_query=query)
+
 @app.route('/login/', methods=['POST','GET'])
 def login():
     if request.method == "GET":
