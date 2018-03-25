@@ -1,7 +1,13 @@
 {% extends "layout.html" %}
 
 {% block title %}Main Page{% endblock %}
-{% block heading %}Main Page{% endblock %}
+{% block heading %}
+{% if search_query %}
+Search for '{{search_query}}'
+{% else %}
+Main Page
+{% endif %}
+{% endblock %}
 
 {% block content %}
 
