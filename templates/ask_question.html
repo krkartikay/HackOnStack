@@ -5,9 +5,20 @@
 
 {% block content %}
 <form method="post">
-  <label for="ask_question">Ask your question here: </label><br>
-  <input type="text" name="title" value="Enter Question Title"><br>
-  <textarea name="body" rows="8" cols="80">Enter Your Question Here</textarea><br>
-  <input type="submit" name="submit" value="Post Question">
+  <div class="form-group">
+    <label class="control-label" for="ask_question">Ask your question here:</label><br>
+    <div>
+      <input type="text" name="title" class="form-control" placeholder="Enter your question title"><br>
+    </div>
+    <div>
+      <textarea name="body" class="form-control" rows=5 placeholder="Enter your question here"></textarea>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-2">
+      <input type="submit" value="Post" class="form-control btn btn-primary">
+    </div>
+  </div>
 </form>
 {% endblock %}
