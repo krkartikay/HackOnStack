@@ -143,7 +143,7 @@ def post_answer(q_id):
 
 @app.route('/question/<int:q_id>')
 def question(q_id):
-    qs = Question.query.filter_by(q_id=q_id).first()
+    qs = Question.query.filter_by(q_id=q_id).first_or_404()
     ans = Answer.query.filter_by(q_id=q_id).order_by(Answer.upvotes.desc()).all()
     return render_template("display_question.html", question=qs, answers=ans)
 
@@ -152,3 +152,20 @@ def question(q_id):
 def profile_page(u_id):
     user = User.query.filter_by(u_id=u_id).first()
     return render_template("profile.html", user = user)
+
+@app.route('/delete/answer/<int:a_id>')
+def delete_a(a_id):
+    ans = Answer.query.filter_by(a_id=a_id).first()
+    q_id = ans.q_id
+    db.session.delete(ans)
+    db.session.commit()
+    db.session.close()
+    return redirect(url_for('question',q_id = q_id))
+
+@app.route('/delete/question/<int:q_id>')
+def delete_q(q_id):
+    qs = Question.query.filter_by(q_id=q_id).first()
+    db.session.delete(qs)
+    db.session.commit()
+    db.session.close()
+    return redirect(url_for('homepage'))
