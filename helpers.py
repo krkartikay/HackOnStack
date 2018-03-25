@@ -1,4 +1,5 @@
 from models.Users import User
+from mistune import markdown
 
 def get_username(u_id):
     u = User.query.filter_by(u_id=u_id).first()

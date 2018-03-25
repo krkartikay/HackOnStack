@@ -5,7 +5,9 @@
 
 {% block content %}
 
-{{question.body}}<br>
+{{helpers.markdown(question.body)|safe}}
+
+<br>
 <small>Asked by {{helpers.get_username(question.author_u_id)}} with ({{question.upvotes}}) upvotes</small>
 
 <br>
@@ -25,7 +27,9 @@
 <div class="card mb-4">
   <div class="card-body">
     <h4><small>Answer by {{helpers.get_username(answer.author_u_id)}} with ({{answer.upvotes}}) upvotes</small></h4>
-    <p class="card-text">{{answer.body}} </p>
+    <p class="card-text">
+      {{helpers.markdown(answer.body)|safe}}
+    </p>
   </div>
   <div class="card-footer text-muted">
     {% if session['logged_in']%}
