@@ -12,6 +12,8 @@ def upvote_q(q_id, u_id):
         return redirect(url_for('login'))
     qs = Question.query.filter_by(q_id=q_id).first()
     qs.upvotes += 1
+    u = Users.query.filter_by(u_id=qs.author_u_id).first()
+    u.reputation += 10
     if qs.upvoters:
         if "+"+str(u_id) in qs.upvoters:
             flash("You cannot upvote/downvote twice!")
@@ -31,6 +33,8 @@ def downvote_q(q_id, u_id):
         return redirect(url_for('login'))
     qs = Question.query.filter_by(q_id=q_id).first()
     qs.upvotes -= 1
+    u = Users.query.filter_by(u_id=qs.author_u_id).first()
+    u.reputation -= 5
     if qs.upvoters:
         if "-"+str(u_id) in qs.upvoters:
             flash("You cannot upvote/downvote twice!")
@@ -50,6 +54,8 @@ def upvote_a(a_id, u_id):
         return redirect(url_for('login'))
     ans = Answer.query.filter_by(a_id=a_id).first()
     ans.upvotes += 1
+    u = Users.query.filter_by(u_id=ans.author_u_id).first()
+    u.reputation += 10
     q_id = ans.q_id
     if ans.upvoters:
         if " +"+str(u_id) in ans.upvoters:
@@ -71,6 +77,8 @@ def downvote_a(a_id, u_id):
         return redirect(url_for('login'))
     ans = Answer.query.filter_by(a_id=a_id).first()
     ans.upvotes -= 1
+    u = Users.query.filter_by(u_id=ans.author_u_id).first()
+    u.reputation -= 5
     q_id = ans.q_id
     if ans.upvoters:
         if " -"+str(u_id) in ans.upvoters:
