@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
 
-{% block title %}Main Page{% endblock %}
+{% block title %}
+{% if search_query %}
+Search for '{{search_query}}'
+{% else %}
+Main Page
+{% endif %}
+{% endblock %}
 {% block heading %}
 {% if search_query %}
 Search for '{{search_query}}'
