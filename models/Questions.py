@@ -9,3 +9,4 @@ class Question(db.Model):
     post_time = db.Column(db.DateTime, nullable=False)
     upvotes = db.Column(db.Integer)
     upvoters = db.Column(db.Text)
+    reports = db.Column(db.Integer)

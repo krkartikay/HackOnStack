@@ -1,4 +1,5 @@
 import time
+import datetime
 from flask import *
 from flask_sqlalchemy import *
 from passlib.hash import sha256_crypt
@@ -10,7 +11,9 @@ from vote_system import *
 
 @app.route('/')
 def homepage():
-    qs = Question.query.order_by(Question.upvotes.desc()).all()
+    last_time = datetime.datetime.now() - datetime.timedelta(hours=48)
+    qs = Question.query.order_by(Question.upvotes.desc()
+                                 ).filter(Question.post_time > last_time).all()
     return render_template("index.html",questions=qs)
 
 @app.route('/search', methods=['POST'])
@@ -177,3 +180,62 @@ def delete_q(q_id):
     db.session.commit()
     db.session.close()
     return redirect(url_for('homepage'))
+
+@app.route('/report/q/<int:q_id>')
+def report_q(q_id):
+    qs = Question.query.filter_by(q_id=q_id).first()
+    u_id = str(session['u_id'])
+    if not("logged_in" in session and session["logged_in"]):
+        flash("You need to log in first!")
+        return redirect(url_for('question',q_id = q_id))
+    else:
+        if not qs.upvoters:
+            qs.upvoters = ' r'+u_id+' '
+        else:
+            if 'r'+u_id in qs.upvoters:
+                flash("You have already reported this question.")
+                return redirect(url_for('question',q_id = q_id))
+        qs.upvoters += ' r'+u_id+' '
+        qs.reports += 1
+        if qs.reports == 3:
+            u = User.query.filter_by(u_id=qs.author_u_id).first()
+            u.reputation -= 50
+            db.session.delete(qs)
+            db.session.commit()
+            db.session.close()
+            flash("The Question has been deleted.")
+            return redirect(url_for('homepage'))
+        else:
+            flash("Question reported.")
+        db.session.commit()
+        db.session.close()
+    return redirect(url_for('question',q_id = q_id))
+
+@app.route('/report/a/<int:q_id>')
+def report_a(a_id):
+    ans = Answer.query.filter_by(a_id=a_id).first()
+    q_id = ans.q_id
+    if not("logged_in" in session and session["logged_in"]):
+        flash("You need to log in first!")
+    else:
+        if not ans.upvoters:
+            ans.upvoters = ' r'+u_id+' '
+        else:
+            if 'r'+u_id in ans.upvoters:
+                flash("You have already reported this question.")
+                return redirect(url_for('question',q_id = q_id))
+        ans.upvoters += ' r'+u_id+' '
+        ans.reports += 1
+        if ans.reports == 3:
+            u = User.query.filter_by(u_id=ans.author_u_id).first()
+            u.reputation -= 50
+            db.session.delete(ans)
+            db.session.commit()
+            db.session.close()
+            flash("The answer has been deleted.")
+            return redirect(url_for('homepage'))
+        else:
+            flash("Answer reported.")
+        db.session.commit()
+        db.session.close()
+    return redirect(url_for('question',q_id = q_id))

@@ -9,3 +9,4 @@ class Answer(db.Model):
     post_time = db.Column(db.DateTime)
     upvotes = db.Column(db.Integer)
     upvoters = db.Column(db.Text)
+    reports = db.Column(db.Integer)
