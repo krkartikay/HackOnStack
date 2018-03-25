@@ -193,13 +193,13 @@ def upvote_a(a_id, u_id):
     ans.upvotes += 1
     q_id = ans.q_id
     if ans.upvoters:
-        if " +"+session['u_id'] in ans.upvoters:
+        if " +"+str(u_id) in ans.upvoters:
             flash("You cannot upvote/downvote twice!")
             return redirect(url_for('question',q_id=q_id))
         else:
-            ans.upvoters += " +"+session['u_id']
+            ans.upvoters += " +"+str(u_id)
     else:
-        ans.upvoters = " +"+session['u_id']
+        ans.upvoters = " +"+str(u_id)
     db.session.commit()
     db.session.close()
     return redirect(url_for('question',q_id=q_id))
@@ -214,13 +214,13 @@ def downvote_a(a_id, u_id):
     ans.upvotes -= 1
     q_id = ans.q_id
     if ans.upvoters:
-        if " -"+session['u_id'] in ans.upvoters:
+        if " -"+str(u_id) in ans.upvoters:
             flash("You cannot upvote/downvote twice!")
             return redirect(url_for('question',q_id=q_id))
         else:
-            ans.upvoters += " -"+session['u_id']
+            ans.upvoters += " -"+str(u_id)
     else:
-        ans.upvoters = " -"+session['u_id']
+        ans.upvoters = " -"+str(u_id)
     db.session.commit()
     db.session.close()
     return redirect(url_for('question',q_id=q_id))
