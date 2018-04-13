@@ -40,7 +40,7 @@
         {% if session['u_id']==answer.author_u_id%}
         <a class="text-danger" href="{{url_for('delete_a',a_id=answer.a_id)}}">Delete answer</a>
         {% endif %}
-        <a class="text-secondary" href="{{url_for('report_a',a_id=answer.a_id)}}">Report Answer</a>
+        <a class="text-secondary" href="{{url_for('report_a',q_id=answer.a_id)}}">Report Answer</a>
       </small>
     {% endif %}
   </div>
